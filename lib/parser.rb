@@ -24,8 +24,6 @@ class Parser
     end
 
     def page_visits
-        # @page_views = {}
-        # @unique_views = {}
         @webserverlog_hash.each do |path, ip|
         @page_views.store(path, ip.count)
         end
@@ -35,8 +33,18 @@ class Parser
         end  
      @page_views
     end
-  
 
+    def unique_views
+        @webserverlog_hash.each do |path, ip| 
+        @unique_views.store(path, ip.uniq.count)
+        end
+
+        @unique_views.sort_by {|key, value| -value}.each do |page, views|
+        puts "#{page} #{views} unique views"
+        end
+     @unique_views
+    end
+  
 
     if $PROGRAM_NAME == __FILE__
         Parser.new(ARGV[0]).run

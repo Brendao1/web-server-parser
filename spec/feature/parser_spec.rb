@@ -30,4 +30,14 @@ RSpec.describe Parser do
         expect { subject.page_visits }.to output(page_visits_output).to_stdout
     end
 
+    it 'shows number of unique views for each page, in descending order' do
+        unique_views_output = 
+        "/help_page/1 2 unique views" + "\n" +
+        "/home 1 unique views"+ "\n" +
+        "/contact 1 unique views"+ "\n" +
+        "/about/2 1 unique views" + "\n"
+        subject.run
+        expect { subject.unique_views }.to output(unique_views_output).to_stdout
+    end
+
 end
